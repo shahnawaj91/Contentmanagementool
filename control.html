@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Content Management</title>
+    <style>
+        .container {
+            background-color: #0093E9;
+            background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Blog Content Management</h1>
+        <div class="content">
+            <label for="text">Text:</label>
+            <textarea id="text" rows="4" cols="50"></textarea>
+        </div>
+        <div class="content">
+            <label for="image">Image URL:</label>
+            <input type="text" id="image">
+            <i class="fa-solid fa-camera"></i>
+        </div>
+        <div class="content">
+            <label for="video">Video URL:</label>
+            <input type="text" id="video">
+            <iframe id="video-preview" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button onclick="addContent()">Add Content</button>
+        <div id="blog-content"></div>
+    </div>
+
+    <script>
+        function addContent() {
+            var text = document.getElementById('text').value;
+            var image = document.getElementById('image').value;
+            var video = document.getElementById('video').value;
+
+            var contentDiv = document.createElement('div');
+            contentDiv.classList.add('content');
+
+            if (text) {
+                var textElement = document.createElement('p');
+                textElement.textContent = text;
+                contentDiv.appendChild(textElement);
+            }
+
+            if (image) {
+                var imageElement = document.createElement('img');
+                imageElement.src = image;
+                imageElement.alt = 'Image';
+                contentDiv.appendChild(imageElement);
+            }
+
+            if (video) {
+                var videoElement = document.createElement('iframe');
+                videoElement.width = '560';
+                videoElement.height = '315';
+                videoElement.src = video;
+                videoElement.frameBorder = '0';
+                videoElement.allowFullscreen = true;
+                contentDiv.appendChild(videoElement);
+            }
+
+            document.getElementById('blog-content').appendChild(contentDiv);
+
+            // Clear input fields and previews
+            document.getElementById('text').value = '';
+            document.getElementById('image').value = '';
+            document.getElementById('image-preview').src = '';
+            document.getElementById('video').value = '';
+            document.getElementById('video-preview').src = '';
+        }
+
+        document.getElementById('image').addEventListener('input', function() {
+            document.getElementById('image-preview').src = this.value;
+        });
+
+        document.getElementById('video').addEventListener('input', function() {
+            document.getElementById('video-preview').src = this.value;
+        });
+    </script>
+</body>
+</html>
